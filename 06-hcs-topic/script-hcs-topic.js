@@ -50,7 +50,7 @@ async function main() {
     const topicMsgSubmitTx = await
         new TopicMessageSubmitTransaction({
             topicId: topicId,
-            message: 'Hello HCS - bguiz',
+            message: 'Hello HCS - twochar',
         })
         .freezeWith(client);
     const topicMsgSubmitTxSigned = await topicMsgSubmitTx.sign(accountKey);

@@ -32,7 +32,8 @@ async function main() {
         './my_contract_sol_MyContract.bin', { encoding: 'utf8' });
     // NOTE: Prepare smart contract for deployment
     // Step (2) in the accompanying tutorial
-    const myContractFactory = new ContractFactory(/* ... */);
+    const myContractFactory = new ContractFactory(
+        abi, evmBytecode, accountWallet);
     const myContract = await myContractFactory.deploy();
     await myContract.deployTransaction.wait();
     const myContractAddress = myContract.address;
@@ -42,7 +43,7 @@ async function main() {
     // write data to smart contract
     // NOTE: Invoke a smart contract transaction
     // Step (3) in the accompanying tutorial
-    const myContractWriteTxRequest = await myContract.functions.introduce(/* ... */);
+    const myContractWriteTxRequest = await myContract.functions.introduce('twochar');
     const myContractWriteTxReceipt = await myContractWriteTxRequest.wait();
     const myContractWriteTxHash = myContractWriteTxReceipt.transactionHash;
     const myContractWriteTxExplorerUrl =
@@ -51,8 +52,7 @@ async function main() {
     // read data from smart contract
     // NOTE: Invoke a smart contract query
     // Step (4) in the accompanying tutorial
-    const [myContractQueryResult] = await /* ... */;
-
+    const [myContractQueryResult] = await myContract.functions.greet();
     // output results
     console.log(`accountId: ${accountId}`);
     console.log(`accountAddress: ${accountAddress}`);

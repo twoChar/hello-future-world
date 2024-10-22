@@ -11,7 +11,7 @@ contract MyContract {
     function greet() external view returns(string memory) {
         // NOTE: Get name stored in mapping
         // Step (1) in the accompanying tutorial
-        string memory name = /* ... */;
+        string memory name = names[msg.sender];
         return string.concat("Hello future - ", name);
     }
 }
