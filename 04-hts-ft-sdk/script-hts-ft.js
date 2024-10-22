@@ -25,11 +25,11 @@ async function main() {
     let tokenCreateTx = await new TokenCreateTransaction()
         // NOTE: Configure HTS token to be created
         // Step (1) in the accompanying tutorial
-        .setTokenType(/* ... */)
-        .setTokenName(/* ... */)
-        .setTokenSymbol(/* ... */)
-        .setDecimals(/* ... */)
-        .setInitialSupply(/* ... */)
+        .setTokenType(TokenType.FungibleCommon)
+        .setTokenName("Systaldyn Coin")
+        .setTokenSymbol("SYS")
+        .setDecimals(2)
+        .setInitialSupply(1_000_000)
         .setTreasuryAccountId(accountId)
         .setAdminKey(accountKey)
         .setFreezeDefault(false)
@@ -46,8 +46,7 @@ async function main() {
     await new Promise((resolve) => setTimeout(resolve, 3000));
     // NOTE: Mirror Node API to query specified token balance
     // Step (2) in the accompanying tutorial
-    const accountBalanceFetchApiUrl =
-        /* ... */;
+    const accountBalanceFetchApiUrl = `https://testnet.mirrornode.hedera.com/api/v1/accounts/${accountId}/tokens?token.id=${tokenId}&limit=1&order=desc`;
     const accountBalanceFetch = await fetch(accountBalanceFetchApiUrl);
     const accountBalanceJson = await accountBalanceFetch.json();
     const accountBalanceToken = accountBalanceJson?.tokens[0]?.balance;

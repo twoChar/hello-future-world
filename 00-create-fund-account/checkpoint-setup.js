@@ -92,7 +92,9 @@ async function main() {
   }
 
   console.log('shell check:');
-  const shellCheckCliExec = await exec(`$( ps -o pid,args | awk '$1=='"$$"'{print $2}' ) --version`);
+  // const shellCheckCliExec = await exec(`$( ps -o pid,args | awk '$1=='"$$"'{print $2}' ) --version`);
+  const shellCheckCliExec = await exec(`ps -o pid,args | awk -v pid=$$ '$1==pid {print $2}'`);
+
   if (shellCheckCliExec.stderr) {
     console.log('shell check error:');
     console.error(shellCheckCliExec.stderr);

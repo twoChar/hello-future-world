@@ -17,7 +17,7 @@ async function main() {
     // plus the default BIP-32/BIP-44 HD Wallet derivation path used by Metamask.
     // NOTE: Derive private key
     // Step (1) in the accompanying tutorial
-    const hdNodeRoot = ethersHdNode.fromMnemonic(/* ... */);
+    const hdNodeRoot = ethersHdNode.fromMnemonic(process.env.SEED_PHRASE);
     const accountHdPath = `m/44'/60'/0'/0/0`;
     const hdNode = hdNodeRoot.derivePath(accountHdPath);
 
@@ -28,7 +28,7 @@ async function main() {
     const privateKeyHex = `0x${privateKey.toStringRaw()}`;
     // NOTE: Derive EVM address
     // Step (2) in the accompanying tutorial
-    const evmAddress = `0x${/* ... */}`;
+    const evmAddress = `0x${privateKey.publicKey.toEvmAddress()}`;
     const accountExplorerUrl = `https://hashscan.io/testnet/account/${evmAddress}`;
     const accountBalanceFetchApiUrl =
         `https://testnet.mirrornode.hedera.com/api/v1/balances?account.id=${evmAddress}&limit=1&order=asc`;
